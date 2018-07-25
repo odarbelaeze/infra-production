@@ -9,6 +9,7 @@ script:
 deploy:
     provider: script
     script: bash ci/server-update.sh
+    skip_cleanup: true
     on:
       branch: master
       repo: odarbelaeze/infra-production
