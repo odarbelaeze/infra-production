@@ -4,14 +4,18 @@ services:
     - docker
 
 script:
-    - docker run -v $(pwd):/export frapsoft/openssl version
-    - docker run -v $(pwd):/export frapsoft/openssl aes-256-cbc -K $BUILD_SECRETS_KEY -iv $BUILD_SECRETS_IV -in /export/ci/id_rsa.enc -out /export/ci/id_rsa -d
-    - echo "Not actually key"
-    - cat ci/id_rsa
-    - cat ci/id_rsa.pub
+    - bash ci/decrypt-keys.sh
+
+deploy:
+    provider: script
+    script: bash ci/server-update.sh
+    on:
+      branch: master
+      repo: odarbelaeze/infra-production
 
 env:
     global:
         - secure: bsUUMURnwLsfkOgV/WNIb+EN2qKmeS9MmH4fLi7g0edWN3OS+y9Xao69T6ezJ/LLun+AOe1pPlw2gm69KFr5ymlFEnidy0HHF3yfVlWW6VboeWp8JS22GV8YgOLh0/XVpjZF/FFLVTMRcZOFJAVlQl7Ughcd7rQc9BSTOSF6T78ZwMgixBxJUcyLpu3SZPXP3ncfiB2OdHuLf8bcJ88iDduOKpXXp9SOEFnQPDQtafT/NL4hzwcWAHOdZFbIYG1PAJ2RFrG/ZCUaDhQg9Jo6qP8ZOfXBAof6Pkr3FF3gJBFQ7m8V2t+ny/i/2sulJWJHI64Y0Fw28r9oJ0nJZe9NkZvGMIYUxxXJyztAWarLuP1GJIvBKOl87BQkKoL9+MfbDjEy7TMPUyzlDhCk5dOZwgUll8a0iIhh4LJGL/bSkefiR1883EV1Tl6Ugj7y/QPuRvW0IJtP/g/I+fs6wtavllnFKfUX+SA2Zrxz1tR81z9fExD6ZIs/L9shr8u6154pIRDaFz4uuUgRGJGylNN03CkPHkuapmrr+F0hrx5+EgkB5+eADUlnc6VqwyOb0cbpmmUceB6YY2+UO5O6H83Po78wDV1HY6ugiC/sLo1qElI86X4XlZsVfR0YMnDoXuvqfbEzrPReffwwkBLW5lUL7FwzFm2Vgk4Ip7pr5gqBQ3Y=
         - secure: TBQM6YGK+O6Uj5qOHluSwp9oJ29NNX5YauXC0ENd8Jmjd59BVK25ll/C3q/VViupd5w8X/ByfPsQVnR+cBAcWRDCSXo06HIrAKyC/DpP5IjCEIMPFSVSPqX67pZUfhvv6g120D/YjNqjjC+J+eS4iQl1pTionAPJZEmD2hjJHkb1YIf/W7nvSVydlgRLa7p5p9F6e4CJN5rlhFPZD/2w9Bf+5tl4RwCpdakoN6HsDV5oPJSUEhK6CCfOkYD2ImyjAZLQnimpgyk9rgjNC6uBH5RNwCPsP6u8PW2kXSQC2wUcG3KzHdb+SHykj/yEFnv1lN7IJqIFPdJcfXmXJpBce0oISe8yxt2PaIlvBcFZnnNfbf5x071PyPmuq9ZVG7GIBK2xG9Z+V9a3YnClkmwtOGmYKHllLWpMElbNglpuGN6M/GS/uL1O25EBgyloWcTTqJEI12ciTCO8nEEggUdYGUNDHpfQoeTIw+4B5Yj7KlN+BDQuIyZlKAQ25h8oiY98kUqrDjXO/UwyHXzLI2K5Tp8om/udCOGowXqhisRRXqeg0RYx8Vy3LycBjiDM+PqRNowYK+SfspK8vGTuDP+RrdrZLj+eLmf0W6lecFoORLPWRHoLtw0+NW4weE3r/n1PHnDeN2hBSehqpNlvqvR/CwEp2PxJLpYHCp5qr9n6BfY=
+        - secure: CO7wzI3oko5nVfiuo3iOkT4NeW2bshu2TNoaEZcr9gL/ieHMG+4Rwwhmm6rp9wrJDac5QcQYzmYZHq88Zo4RDo9c+lLKEposKDbD3o4Td/2ZOt/yTXVP0W1ROPWBXvJaXJYswHogDAcEVc01i7VUSsQXNTkvxMlSbKKVCAL1srL5eEB8G1ru45JLFfO+dKcpOXn7nXqZzn20Tz+c1S2iDTGk/QkfR//oEb7svl5lfaxxx5ZLeDbUzds4tmhvZ5FvaJK1gZJq/qFyU34EmxIFoYFKd/NPd0Qk4d67Kuyjbpr5fKKLF2EKgbUegsB94RrekOETw3UkHRKLhT7NypO0WO0YYVsAlDQvFhJJApdEtafZBCe3NmtMPgjr7otp1IE0c2BKUXOTiCW/3Hyl4Pz/WYr9obkxzmWRsJ7Col9xAgMsyeenLbw+U0OkNFsB4z5uVx0jKbya9nA/8Pv00/4UOMshAvhWpfZQpFvn6+SIUex6pMqp9RxccdCC9MAtTl/zbwBApTLPhg6r4n3CFJggcqzhrW/GNJyqqWiyURTQ7QP4k5TLYsrpo6tNbIpqOLWU1qheebI+KmTc2hb3uzt8T/com86me8FphgKw/6ws37jRAH0DpVNLxGT+0I7t3voCwC1rsBEj7G2j0paeR3s9nWjMeWXQM+RmJ40hEVB+Isg=
 
