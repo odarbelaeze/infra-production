@@ -8,3 +8,6 @@ docker-machine create \
 
 docker-machine ssh manager \
     "docker swarm init --listen-addr $(docker-machine ip manager) --advertise-addr $(docker-machine ip manager)"
+
+docker-machine ssh manager \
+    "docker network create --driver overlay proxy"
