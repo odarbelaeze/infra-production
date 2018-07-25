@@ -1,4 +1,9 @@
 sudo: false
+group: edge
+dist: trusty
+language: python
+python:
+    - 3.7
 script:
     - openssl version
     - openssl aes-256-cbc --help
