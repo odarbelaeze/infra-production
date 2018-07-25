@@ -1,5 +1,6 @@
 docker run -v $(pwd):/export frapsoft/openssl version
 
+touch ci/keys/id_rsa
 docker run \
     -v $(pwd):/export \
     frapsoft/openssl aes-256-cbc \
