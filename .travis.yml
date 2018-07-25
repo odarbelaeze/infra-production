@@ -1,0 +1,3 @@
+sudo: false
+script:
+    - openssl aes-256-cbc --help
