@@ -1,3 +1,4 @@
 sudo: false
 script:
+    - openssl version
     - openssl aes-256-cbc --help
