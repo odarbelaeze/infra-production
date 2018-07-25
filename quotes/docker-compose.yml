@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  quotes:
+    image: odarbelaeze/quotes:6a5c3019debc0b2c1bbeeaabb7df8ba8f53913ed
+    environment:
+      - QUOTES_PREFIX=/api
+    networks:
+      - proxy
+    deploy:
+      replicas: 3
+      labels:
+        - com.df.notify=true
+        - com.df.servicePath=/api
+        - com.df.port=8000
+
+  ui:
+    image: odarbelaeze/quotes-ui:da83520a8c118f8d0b16d75daa1cfae3118d867a
+    networks:
+      - proxy
+    deploy:
+      replicas: 3
+      labels:
+        - com.df.notify=true
+        - com.df.servicePath=/
+        - com.df.servicePathExclude=/api
+        - com.df.port=80
+
+networks:
+  proxy:
+    external: true
+
