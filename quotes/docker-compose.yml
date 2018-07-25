@@ -3,7 +3,7 @@ version: '3'
 services:
 
   quotes:
-    image: odarbelaeze/quotes:latest
+    image: odarbelaeze/quotes:6a5c3019debc0b2c1bbeeaabb7df8ba8f53913ed
     environment:
       - QUOTES_PREFIX=/api
     networks:
@@ -16,7 +16,7 @@ services:
         - com.df.port=8000
 
   ui:
-    image: odarbelaeze/quotes-ui:da83520a8c118f8d0b16d75daa1cfae3118d867a
+    image: odarbelaeze/quotes-ui:32fae1374501c342ceabca5ffb6ff116c7fdf47f
     networks:
       - proxy
     deploy:
