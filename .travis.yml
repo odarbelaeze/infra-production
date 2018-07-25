@@ -1,9 +1,7 @@
-sudo: false
-group: edge
-dist: trusty
-language: python
-python:
-    - 3.6
+sudo: required
+
+services:
+    - docker
+
 script:
-    - openssl version
-    - openssl aes-256-cbc --help
+    - docker run -v $(pwd):/export frapsoft/openssl version
