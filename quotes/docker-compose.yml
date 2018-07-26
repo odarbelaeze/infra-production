@@ -3,7 +3,7 @@ version: '3'
 services:
 
   quotes:
-    image: odarbelaeze/quotes:6a5c3019debc0b2c1bbeeaabb7df8ba8f53913ed
+    image: odarbelaeze/quotes:broken
     environment:
       - QUOTES_PREFIX=/api
     networks:
